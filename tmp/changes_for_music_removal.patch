@@ -1,0 +1,70 @@
+useEffect(() => {
+    const audio = new Audio("/music.mp3");
+    audio.loop = true;
+    audio.preload = "auto";
+    backgroundAudioRef.current = audio;
+    return () => {
+      audio.pause();
+      backgroundAudioRef.current = null;
+    };
+  }, []);
+
+  const playBackgroundMusic = useCallback(() => {
+    const audio = backgroundAudioRef.current;
+    if (!audio) {
+      return;
+    }
+    if (!audio.paused) {
+      return;
+    }
+    audio.currentTime = 0;
+    void audio.play().catch(() => {
+      // ignore play errors (browser might block)
+    });
+  }, []);
+=======
+
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.code !== "Space" && event.key !== " ") {
+        return;
+      }
+      event.preventDefault();
+      if (!hasStarted) {
+        playBackgroundMusic();
+        setHasStarted(true);
+        return;
+      }
+      if (hasAnimationCompleted && isCandleLit) {
+        setIsCandleLit(false);
+        setFireworksActive(true);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [hasStarted, hasAnimationCompleted, isCandleLit, playBackgroundMusic]);
+=======
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.code !== "Space" && event.key !== " ") {
+        return;
+      }
+      event.preventDefault();
+      if (!hasStarted) {
+        setHasStarted(true);
+        return;
+      }
+      if (hasAnimationCompleted && isCandleLit) {
+        setIsCandleLit(false);
+        setFireworksActive(true);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [hasStarted, hasAnimationCompleted, isCandleLit]);
